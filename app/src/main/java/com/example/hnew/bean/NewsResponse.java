@@ -4,6 +4,7 @@ import java.util.List;
 
 public class NewsResponse {
 
+
     private String reason;
     private ResultBean result;
     private int error_code;
@@ -78,9 +79,9 @@ public class NewsResponse {
             private String author_name;
             private String url;
             private String thumbnail_pic_s;
+            private String is_content;
             private String thumbnail_pic_s02;
             private String thumbnail_pic_s03;
-            private String is_content;
 
             public String getUniquekey() {
                 return uniquekey;
@@ -138,6 +139,14 @@ public class NewsResponse {
                 this.thumbnail_pic_s = thumbnail_pic_s;
             }
 
+            public String getIs_content() {
+                return is_content;
+            }
+
+            public void setIs_content(String is_content) {
+                this.is_content = is_content;
+            }
+
             public String getThumbnail_pic_s02() {
                 return thumbnail_pic_s02;
             }
@@ -152,14 +161,6 @@ public class NewsResponse {
 
             public void setThumbnail_pic_s03(String thumbnail_pic_s03) {
                 this.thumbnail_pic_s03 = thumbnail_pic_s03;
-            }
-
-            public String getIs_content() {
-                return is_content;
-            }
-
-            public void setIs_content(String is_content) {
-                this.is_content = is_content;
             }
         }
     }

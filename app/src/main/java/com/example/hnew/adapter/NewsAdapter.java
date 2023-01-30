@@ -1,13 +1,18 @@
 package com.example.hnew.adapter;
 
 
+import android.widget.ImageView;
+
 import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.example.hnew.R;
 import com.example.hnew.bean.NewsResponse;
 
+
 import java.util.List;
+
 
 public class NewsAdapter extends BaseQuickAdapter<NewsResponse.ResultBean.DataBean, BaseViewHolder> {
     public NewsAdapter(int layoutResId, @Nullable List<NewsResponse.ResultBean.DataBean> data) {
@@ -16,7 +21,7 @@ public class NewsAdapter extends BaseQuickAdapter<NewsResponse.ResultBean.DataBe
 
     @Override
     protected void convert(BaseViewHolder helper, NewsResponse.ResultBean.DataBean item) {
-
+        helper.setText(R.id.title,item.getTitle()).setText(R.id.author_name,item.getAuthor_name());
 
     }
 

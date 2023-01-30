@@ -120,9 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 if (list.get(position).equals("头条")){
                     bundle.putString("name","top");
-                }else if (list.get(position).equals("社会")){
-                    bundle.putString("name","shehui");
-                }else if (list.get(position).equals("国内")){
+                } else if (list.get(position).equals("国内")){
                     bundle.putString("name","guonei");
                 }else if (list.get(position).equals("国际")){
                     bundle.putString("name","guoji");
@@ -136,8 +134,6 @@ public class MainActivity extends AppCompatActivity {
                     bundle.putString("name","keji");
                 }else if (list.get(position).equals("财经")){
                     bundle.putString("name","caijing");
-                }else if (list.get(position).equals("时尚")){
-                    bundle.putString("name","shishang");
                 }
                 newsFragment.setArguments(bundle);
                 return newsFragment;

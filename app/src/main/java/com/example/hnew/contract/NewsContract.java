@@ -1,5 +1,9 @@
 package com.example.hnew.contract;
 
+import android.util.Log;
+
+import androidx.appcompat.widget.DialogTitle;
+
 import com.example.hnew.api.ServiceApi;
 import com.example.hnew.base.BasePresenter;
 import com.example.hnew.base.BaseView;
@@ -20,14 +24,20 @@ public class NewsContract {
             serviceApi.getNews(type).enqueue(new Callback<NewsResponse>() {
                 @Override
                 public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
+                    if(getView() != null){
+                        getView().getTopNews(response);
+                    }
 
                 }
 
                 @Override
                 public void onFailure(Call<NewsResponse> call, Throwable t) {
-
+                    if(getView() != null){
+                        getView().getDataFailed();
+                    }
                 }
             });
+
         }
 
     }
@@ -36,6 +46,8 @@ public class NewsContract {
 
         //获取新闻头条
         void getTopNews(Response<NewsResponse> response);
+
+        void getDataFailed();
 
     }
 }
