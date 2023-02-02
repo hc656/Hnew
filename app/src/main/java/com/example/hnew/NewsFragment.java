@@ -1,12 +1,15 @@
 package com.example.hnew;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,6 +19,7 @@ import androidx.appcompat.widget.DialogTitle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.hnew.adapter.NewsAdapter;
 import com.example.hnew.bean.NewsResponse;
 import com.example.hnew.contract.NewsContract;
@@ -87,6 +91,22 @@ public class NewsFragment extends MvpFragment<NewsContract.NewsPresenter> implem
                 mPresent.TopNews(data);
             }
         });
+        newsAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(getActivity(),WebActivity.class);
+                String url = newslist.get(position).getUrl();
+                intent.putExtra("url",url);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("Okht", "onResume: " + newslist.size());
+        newsAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -1,10 +1,12 @@
 package com.example.hnew.adapter;
 
 
+
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.hnew.R;
@@ -22,7 +24,10 @@ public class NewsAdapter extends BaseQuickAdapter<NewsResponse.ResultBean.DataBe
     @Override
     protected void convert(BaseViewHolder helper, NewsResponse.ResultBean.DataBean item) {
         helper.setText(R.id.title,item.getTitle()).setText(R.id.author_name,item.getAuthor_name());
-
+        if(item.getThumbnail_pic_s() != null){
+            ImageView imageView = helper.getView(R.id.image);
+            Glide.with(mContext).load(item.getThumbnail_pic_s()).into(imageView);
+        }
+        helper.addOnClickListener(R.id.item_layouts);
     }
-
 }
