@@ -44,6 +44,8 @@ public class NewsFragment extends MvpFragment<NewsContract.NewsPresenter> implem
     private NewsAdapter newsAdapter;
     private  String data;
     private List<NewsResponse.ResultBean.DataBean>newslist;
+    private boolean isPrepared = false;
+    protected boolean isLazyLoaded = false;
 
 
     @Override
@@ -74,10 +76,12 @@ public class NewsFragment extends MvpFragment<NewsContract.NewsPresenter> implem
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
      //   onAttach(getActivity());
+        isPrepared = true;
         Bundle bundle = getArguments();
         data = bundle.getString("name","top");
         Message message = Message.obtain();
         message.what = UPNEWS_INSERT;
+        lazyLoad();
         //置顶功能
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,11 +106,38 @@ public class NewsFragment extends MvpFragment<NewsContract.NewsPresenter> implem
         });
     }
 
+    private void lazyLoad() {
+        if (getUserVisibleHint() && isPrepared && !isLazyLoaded) {
+            mPresent.TopNews(data);
+            isLazyLoaded = true;
+        } else {
+            //当视图已经对用户不可见并且加载过数据，如果需要在切换到其他页面时停止加载数据，可以覆写此方法
+
+        }
+    }
+
+
+
     @Override
     public void onResume() {
         super.onResume();
         Log.d("Okht", "onResume: " + newslist.size());
         newsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            lazyLoad();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        isLazyLoaded = false;
+        isPrepared = false;
     }
 
     @Override
